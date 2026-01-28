@@ -87,11 +87,31 @@ JOIN categorias c ON u.id_categoria = c.id_categoria;
 /* Relación tipo N:M */
 -- PASO 1
 -- Tu código aquí
+CREATE TABLE usuarios_categorias (
+    id_usuario_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT, 
+    id_categoria INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+);
 
 
 -- PASO 2
 -- Tu código aquí
-
+INSERT INTO usuarios_categorias (id_usuario, id_categoria) VALUES
+(2,1), (3,2),(4,3), (5,4)
 
 -- PASO 3
 -- Tu código aquí
+SELECT 
+    u.id_usuario,
+    u.nombre,
+    u.apellido,
+    u.email,
+    u.edad,
+    r.nombre_rol,
+    c.nombre_categoria
+FROM usuarios u
+JOIN roles r ON u.id_rol = r.id_rol
+JOIN usuarios_categorias uc ON u.id_usuario = uc.id_usuario
+JOIN categorias c ON uc.id_categoria = c.id_categoria;
